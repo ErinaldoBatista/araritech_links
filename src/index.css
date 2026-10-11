@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/*
+  Valores PADRÃO (fallback). As cores oficiais ficam em src/config/site.ts (theme)
+  e são aplicadas por cima destes valores quando a página carrega.
+*/
+@theme static {
+  --font-display: "Oxanium Variable", "Oxanium", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree Variable", "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --color-background: #151719;
+  --color-surface: #1e2225;
+  --color-line: #31373b;
+  --color-brand: #009088;
+  --color-accent: #2bd9cb;
+  --color-foreground: #f4f8f8;
+  --color-muted: #a8b4b7;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    background: var(--color-background);
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+}
+
+/* Textura sutil de pontos, só no topo da página */
+.dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-foreground) 9%, transparent) 1px, transparent 1.3px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+}
+
+/* Único movimento automático da página: um brilho que cruza o botão do WhatsApp uma vez */
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.4) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cta-shine::after {
+    animation: shine 1.1s ease-out 0.9s 1 both;
+  }
+  .notice {
+    animation: notice-in 0.25s ease-out both;
+  }
+}
+@keyframes shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+@keyframes notice-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Palco da capa do e-book: turquesa suave, sem degradê */
+.cover-stage {
+  background: color-mix(in srgb, var(--color-brand) 16%, var(--color-surface));
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Mockup 3D do livro */
+.book-stage {
+  position: relative;
+  perspective: 900px;
+  width: 9.75rem;
+}
+.book {
+  position: relative;
+  transform: rotateY(-24deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  border-radius: 3px 9px 9px 3px;
+  box-shadow:
+    16px 20px 30px -12px rgb(0 0 0 / 0.65),
+    inset 0 0 0 1px rgb(255 255 255 / 0.07);
+}
+.book-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 3px 9px 9px 3px;
+}
+.book-spine {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 9%;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.5), rgb(255 255 255 / 0.16) 60%, rgb(0 0 0 / 0.12));
+  pointer-events: none;
+}
+.book-floor {
+  position: absolute;
+  inset: auto 4% -0.9rem 12%;
+  height: 1rem;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.45), transparent);
+  filter: blur(4px);
+  z-index: -1;
+}
+@media (min-width: 400px) {
+  .book-stage {
+    width: 11rem;
+  }
+}
