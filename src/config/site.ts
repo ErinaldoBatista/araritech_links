@@ -18,14 +18,14 @@
  * Enquanto estiver vazio (""), o botão do e-book mostra a
  * mensagem "estará disponível em breve" e NÃO leva a nenhuma página.
  */
-export const CAKTO_CHECKOUT_URL: string = "";
+export const CAKTO_CHECKOUT_URL: string = "https://go.pepperpay.com.br/jkmg5";
 
 /**
  * Instagram da ARARITECH. Aceita o link completo
  * ("https://www.instagram.com/seu_usuario") ou só o @ ("@seu_usuario").
  * Enquanto estiver vazio (""), o link do Instagram não aparece no rodapé.
  */
-export const INSTAGRAM_URL: string = "";
+export const INSTAGRAM_URL: string = "https://www.instagram.com/araritech_/";
 
 export const siteConfig = {
   /** Identidade da marca. Grafia oficial: ARARITECH. */
